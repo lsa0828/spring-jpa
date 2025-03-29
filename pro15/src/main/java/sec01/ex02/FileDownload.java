@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/dowonload.do")
+@WebServlet("/download.do")
 public class FileDownload extends HttpServlet {
 	private static final String DOWNLOAD_DIR = "uploads";
 	
@@ -23,11 +23,12 @@ public class FileDownload extends HttpServlet {
 	}
 	
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String fileName = request.getParameter("file"); // 다운로드할 파일명 받기
+		String fileName = (String) request.getParameter("fileName"); // 다운로드할 파일명 받기
         if (fileName == null || fileName.isEmpty()) {
             response.getWriter().println("파일명을 입력하세요.");
             return;
         }
+        System.out.println("fileName=" + fileName);
 
         // String filePath = getServletContext().getRealPath("") + File.separator + DOWNLOAD_DIR + File.separator + fileName;
         String filePath = "C:\\Java" + File.separator + DOWNLOAD_DIR + File.separator + fileName;
@@ -45,11 +46,11 @@ public class FileDownload extends HttpServlet {
 
         // 파일을 스트림으로 전송
         try (FileInputStream fis = new FileInputStream(file);
-             OutputStream os = response.getOutputStream()) {
+             OutputStream out = response.getOutputStream()) {
             byte[] buffer = new byte[4096];
             int bytesRead;
             while ((bytesRead = fis.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
+                out.write(buffer, 0, bytesRead);
             }
         }
 	}
