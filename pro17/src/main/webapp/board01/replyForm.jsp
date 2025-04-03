@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글쓰기창</title>
+<title>답글쓰기</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 	function readURL(input) {
@@ -30,20 +30,20 @@
 </script>
 </head>
 <body>
-	<h1 style="text-align:center">새 글 쓰기</h1>
-	<form name="articleForm" method="post" action="${contextPath }/board/addArticle.do" enctype="multipart/form-data">
-		<table border="0" align="center">
+	<h1 style="text-align:center">답글쓰기</h1>
+	<form name="frmReply" method="post" action="${contextPath }/board/addReply.do" enctype="multipart/form-data">
+		<table align="center">
 			<tr>
-				<td align="right">글제목: </td>
-				<td colspan="2">
-					<input type="text" size="67" maxlength="500" name="title" />
-				</td>
+				<td align="right">글쓴이:&nbsp; </td>
+				<td><input type="text" size="5" value="lee" disabled/></td>
 			</tr>
 			<tr>
-				<td align="right" valign="top"><br>글내용: </td>
-				<td colspan=2>
-					<textarea name="content" rows="10" cols="65" maxlength="4000"></textarea>
-				</td>
+				<td align="right">글제목:&nbsp; </td>
+				<td><input type="text" size="67" maxlength="100" name="title"></td>
+			</tr>
+			<tr>
+				<td align="right" valign="top"><br>글내용:&nbsp; </td>
+				<td><textarea name="content" rows="10" cols="65" maxlength="4000"></textarea></td>
 			</tr>
 			<tr>
 				<td align="right">이미지파일 첨부: </td>
@@ -52,9 +52,9 @@
 			</tr>
 			<tr>
 				<td align="right"></td>
-				<td colspan="2">
-					<input type="submit" value="글쓰기" />
-					<input type=button value="목록보기" onClick="backToList(this.form)" />
+				<td>
+					<input type="submit" value="답글반영하기" />
+					<input type="button" value="취소" onClick="backToList(this.form) "/>
 				</td>
 			</tr>
 		</table>

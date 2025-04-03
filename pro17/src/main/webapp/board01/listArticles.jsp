@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="articlesList" value="${articlesMap.articlesList}" />
+<c:set var="totArticles" value="${articlesMap.totArticles}" />
+<c:set var="section" value="${articlesMap.section}" />
+<c:set var="pageNum" value="${articlesMap.pageNum}" />
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -11,6 +15,8 @@
 <html>
 <head>
 <style>
+	.no-uline {text-decoration:none;}
+   	.sel-page {text-decoration:none;color:red;}
 	.cls1 {text-decoration:none;}
    	.cls2 {text-align:center; font-size:30px;}
 </style>
@@ -63,6 +69,42 @@
 	     	</c:when>
 	    </c:choose>
 	</table>
+	
+	<div class="cls2">
+		<c:if test="${totArticles != null }">
+			<c:choose>
+				<c:when test="${totArticles > 100 }"> <!-- 글 개수가 100 초과인경우 -->
+					<c:forEach var="page" begin="1" end="10" step="1">
+						<c:if test="${section }>1 && page==1">
+							<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+						</c:if>
+						<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+						<c:if test="${page ==10 }">
+	          				<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section+1}&pageNum=${section*10+1}">&nbsp; next</a>
+	         			</c:if>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totArticles ==100 }" > <!--등록된 글 개수가 100개인경우 -->
+					<c:forEach var="page" begin="1" end="10" step="1">
+						<a class="no-uline" href="#">${page }</a>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totArticles<100 }"> <!--등록된 글 개수가 100개 미만인 경우 -->
+					<c:forEach var="page" begin="1" end="${totArticles/10 + 1 }" step="1">
+						<c:choose>
+							<c:when test="${page==pageNum }">
+								<a class="sel-page" href="${contextPath }/board/listArticles.do?section=${section}&pageNum=${page}">${page } </a>
+							</c:when>
+							<c:otherwise>
+								<a class="no-uline" href="${contextPath }/board/listArticles.do?section=${section}&pageNum=${page}">${page } </a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</c:if>
+	</div>
+	
 	<a class="cls1" href="${contextPath }/board/articleForm.do">
 		<p class="cls2">글쓰기</p>
 	</a>
