@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="personService1" class="com.spring.ex01.PersonServiceImpl">
+        <property name="name" value="이순신"/>
+    </bean>
+    <bean id="personService2" class="com.spring.ex01.PersonServiceImpl">
+        <property name="name" value="손흥민"/>
+        <property name="age" value="23"/>
+    </bean>
+</beans>
